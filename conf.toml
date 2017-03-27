@@ -1,2 +1,9 @@
 [directory]
-path = "C:\testes"
+path="/home/daniel/test"
+
+[bucket]
+name="teste"
+
+[credentials]
+id="xpto"
+secretkey="AHSUksaeiui90"

@@ -12,8 +12,19 @@ import (
 type directory struct {
 	Path string `toml:"path"`
 }
+
+type bucket struct {
+	Name string `toml:"name"`
+}
+
+type credentials struct {
+	Id        string `toml:"id"`
+	SecretKey string `toml:"secretkey"`
+}
 type config struct {
-	Directory directory `toml:"directory"`
+	Directory   directory   `toml:"directory"`
+	Bucket      bucket      `toml:"bucket"`
+	Credentials credentials `toml:"credentials"`
 }
 
 var Conf config

@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"os"
+
 	"github.com/DanielDanteDosSantosViana/darth_vader/config"
+	"github.com/DanielDanteDosSantosViana/darth_vader/watcher"
 )
 
 func main() {
@@ -13,6 +15,7 @@ func main() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-
 	config.Load(*configFile)
+	watcher.Watch()
+
 }

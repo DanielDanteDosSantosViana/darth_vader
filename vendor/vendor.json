@@ -15,6 +15,12 @@
 			"revisionTime": "2017-01-04T21:11:26Z"
 		},
 		{
+			"checksumSHA1": "LtBBfn+Uw7/gaB2tVsrLRBTprdo=",
+			"path": "github.com/fsnotify/fsnotify",
+			"revision": "30411dbcefb7a1da7e84f75530ad3abe4011b4f8",
+			"revisionTime": "2016-04-12T13:37:56Z"
+		},
+		{
 			"checksumSHA1": "QD6LqgLz2JMxXqns8TaxtK9AuHs=",
 			"path": "github.com/go-sql-driver/mysql",
 			"revision": "2e00b5cd70399450106cec6431c2e2ce3cae5034",
@@ -73,7 +79,13 @@
 			"path": "github.com/smartystreets/goconvey/convey/reporting",
 			"revision": "3bd662eac601ad6436e64776af2e112069eb2edc",
 			"revisionTime": "2017-01-10T12:00:22Z"
+		},
+		{
+			"checksumSHA1": "+KwJYe1p4gXvKVaqpL0WTqk9uFk=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "afadfcc7779c1f4db0f6f6438afcb108d9c9c7cd",
+			"revisionTime": "2017-03-25T14:33:42Z"
 		}
 	],
-	"rootPath": "github.com/DanielDanteDosSantosViana/hire.me"
+	"rootPath": "github.com/DanielDanteDosSantosViana/darth_vader"
 }
