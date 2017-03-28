@@ -14,7 +14,8 @@ type directory struct {
 }
 
 type bucket struct {
-	Name string `toml:"name"`
+	Name   string `toml:"name"`
+	Region string `toml:"region"`
 }
 
 type credentials struct {

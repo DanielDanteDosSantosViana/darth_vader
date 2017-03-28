@@ -2,8 +2,5 @@
 path="/home/daniel/test"
 
 [bucket]
-name="teste"
-
-[credentials]
-id="xpto"
-secretkey="AHSUksaeiui90"
+name="testewatchfilebucket"
+region="sa-east-1"

@@ -36,7 +36,7 @@ func getCredentials() (*credentials.Credentials, error) {
 }
 
 func newSessionAWS(creds *credentials.Credentials) *s3.S3 {
-	cfg := aws.NewConfig().WithRegion("region").WithCredentials(creds)
+	cfg := aws.NewConfig().WithRegion(config.Conf.Bucket.Region).WithCredentials(creds)
 	svc := s3.New(session.New(), cfg)
 	return svc
 }
