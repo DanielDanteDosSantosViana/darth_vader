@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  darth_vader:
+    image: darth_vader
+    volumes:
+      - .:/go/src/github.com/DanielDanteDosSantosViana/darth_vader
+
+    working_dir: /go/src/github.com/DanielDanteDosSantosViana/darth_vader
+    command: go run main.go
+    environment:
+      ID_AWS: testewas
+      SECRET_KEY_AWS: secretawske

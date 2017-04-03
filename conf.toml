@@ -1,5 +1,5 @@
 [directory]
-path="/home/daniel/test"
+path="test"
 
 [bucket]
 name="testewatchfilebucket"
