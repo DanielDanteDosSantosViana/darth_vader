@@ -9,5 +9,5 @@ services:
     working_dir: /go/src/github.com/DanielDanteDosSantosViana/darth_vader
     command: go run main.go
     environment:
-      ID_AWS: testewas
-      SECRET_KEY_AWS: secretawske
+      ID_AWS: XPTO
+      SECRET_KEY_AWS: XPTO
