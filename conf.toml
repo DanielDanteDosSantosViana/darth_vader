@@ -1,6 +1,11 @@
 [directory]
-path="/home/danielviana/desenvolvimento/projetos/xmen/colossus/files/TIMPOSPAGO/output"
+path="test"
 
 [bucket]
 name="testewatchfilebucket"
 region="sa-east-1"
+
+[db]
+name="files"
+mysqlread =  "root:1234@/encurtar_url?charset=utf8"
+mysqlwrite = "root:1234@/encurtar_url?charset=utf8"

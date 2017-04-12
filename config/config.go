@@ -9,6 +9,11 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+type db struct {
+	MongoWrite string `toml:"mongowrite"`
+	MongoRead  string `toml:"mongoread"`
+	Name       string `toml:"name"`
+}
 type directory struct {
 	Path string `toml:"path"`
 }
@@ -26,6 +31,7 @@ type config struct {
 	Directory   directory   `toml:"directory"`
 	Bucket      bucket      `toml:"bucket"`
 	Credentials credentials `toml:"credentials"`
+	Db          db          `toml:"db"`
 }
 
 var Conf config

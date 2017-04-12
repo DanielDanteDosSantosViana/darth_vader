@@ -2,8 +2,8 @@ package reader
 
 import (
 	"bytes"
-	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -22,19 +22,19 @@ type Reader struct {
 func NewReader(filePath string, clientAWS *aws.ClientAWS) *Reader {
 	return &Reader{filePath, nil, "", clientAWS}
 }
-func (r *Reader) read() {
-	fmt.Printf("LEU")
-	time.Sleep(time.Second * 3)
+
+func (r *Reader) Read() {
+	time.Sleep(time.Second * 5)
 	fileInfo, err := os.Stat(r.FilePath)
 	if err != nil {
 		if os.IsNotExist(err) {
-			fmt.Printf("File does not exist.")
+			log.Printf("arquivo não existe.")
 			return
 		}
 	}
 	file, e := os.Open(r.FilePath)
 	if e != nil {
-		fmt.Printf("err opening file: %s", e)
+		log.Printf("err ao abrir o arquivo : %s", e)
 	}
 	defer file.Close()
 	fileInfo, _ = file.Stat()
@@ -46,7 +46,6 @@ func (r *Reader) read() {
 
 	r.FileByte = fileBytes
 	r.FileType = fileType
-	fmt.Printf("LEU-2")
 	params := aws.NewParams(config.Conf.Bucket.Name, r.FilePath, size, r.FileByte, r.FileType)
 	r.clientAWS.SendToS3(params)
 }
