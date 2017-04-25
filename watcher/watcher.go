@@ -31,9 +31,12 @@ func Watch() {
 		}
 	}()
 
-	err = watcher.Add(config.Conf.Directory.Path)
-	if err != nil {
-		log.Fatal(err)
+	directories := config.Conf.Directories
+	for _, directory := range directories {
+		err = watcher.Add(directory.Path)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 	<-done
 }

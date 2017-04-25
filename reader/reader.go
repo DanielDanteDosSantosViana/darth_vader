@@ -34,7 +34,8 @@ func (r *Reader) Read() {
 	}
 	file, e := os.Open(r.FilePath)
 	if e != nil {
-		log.Printf("err ao abrir o arquivo : %s", e)
+		log.Printf("error ao abrir o arquivo : %s", e)
+		return
 	}
 	defer file.Close()
 	fileInfo, _ = file.Stat()

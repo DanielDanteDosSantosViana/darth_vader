@@ -14,6 +14,7 @@ type db struct {
 	MongoRead  string `toml:"mongoread"`
 	Name       string `toml:"name"`
 }
+
 type directory struct {
 	Path string `toml:"path"`
 }
@@ -27,8 +28,9 @@ type credentials struct {
 	Id        string `toml:"id"`
 	SecretKey string `toml:"secretkey"`
 }
+
 type config struct {
-	Directory   directory   `toml:"directory"`
+	Directories []directory `toml:"directories"`
 	Bucket      bucket      `toml:"bucket"`
 	Credentials credentials `toml:"credentials"`
 	Db          db          `toml:"db"`

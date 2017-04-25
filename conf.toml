@@ -1,5 +1,7 @@
-[directory]
-path="test"
+[[directories]]
+path="/home/danielviana/desenvolvimento/projetos/xmen/colossus/files/TIMPOSPAGO/output"
+[[directories]]
+path="/home/danielviana/desenvolvimento/projetos/xmen/colossus/files/TIMPOSPAGO/input/unprocessed"
 
 [bucket]
 name="testewatchfilebucket"
