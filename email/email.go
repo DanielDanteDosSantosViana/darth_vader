@@ -5,29 +5,43 @@ import (
 	"fmt"
 	"html/template"
 	"net/smtp"
+	"os"
+
+	sendgrid "github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 var auth smtp.Auth
 
 func Send(fileName string) {
-	auth = smtp.PlainAuth("", "email", "pass", "smtp.gmail.com")
+
+	from := mail.NewEmail("Colossus", "daniel.viana@m4u.com.br")
+	subject := "Novos Arquivos da TIM"
+	to := mail.NewEmail("Daniel", "daniel.viana@m4u.com.br")
 	templateData := struct {
 		FileName string
 	}{
 		FileName: fileName,
 	}
-	r := newRequest([]string{"emailparaenvio"}, "Hello Daniel!", "Hello, World!")
-	err := r.ParseTemplate("./email/template.html", templateData)
+	err, buf := ParseTemplate("./email/template.html", templateData)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	ok, err := r.sendEmail()
+	content := mail.NewContent("text/html", buf.String())
+	m := mail.NewV3MailInit(from, subject, to, content)
+	request := sendgrid.GetRequest(os.Getenv("SENDGRID_API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")
+	request.Method = "POST"
+	request.Body = mail.GetRequestBody(m)
+	response, err := sendgrid.API(request)
 	if err != nil {
 		fmt.Println(err)
-		return
+	} else {
+		fmt.Println(response.StatusCode)
+		fmt.Println(response.Body)
+		fmt.Println(response.Headers)
 	}
-	fmt.Print(ok)
+
 }
 
 //Request struct
@@ -38,35 +52,21 @@ type Request struct {
 	body    string
 }
 
-func newRequest(to []string, subject, body string) *Request {
+func newRequest(to []string, from string, subject string) *Request {
 	return &Request{
+		from:    from,
 		to:      to,
 		subject: subject,
-		body:    body,
 	}
 }
-
-func (r *Request) sendEmail() (bool, error) {
-	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
-	subject := "Subject: " + r.subject + "!\n"
-	msg := []byte(subject + mime + "\n" + r.body)
-	addr := "smtp.gmail.com:587"
-
-	if err := smtp.SendMail(addr, auth, "email", r.to, msg); err != nil {
-		return false, err
-	}
-	return true, nil
-}
-
-func (r *Request) ParseTemplate(templateFileName string, data interface{}) error {
+func ParseTemplate(templateFileName string, data interface{}) (error, *bytes.Buffer) {
 	t, err := template.ParseFiles(templateFileName)
 	if err != nil {
-		return err
+		return err, nil
 	}
 	buf := new(bytes.Buffer)
 	if err = t.Execute(buf, data); err != nil {
-		return err
+		return err, nil
 	}
-	r.body = buf.String()
-	return nil
+	return nil, buf
 }

@@ -1,7 +1,9 @@
 package reader
 
 import (
+	"bufio"
 	"bytes"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -41,6 +43,13 @@ func (r *Reader) Read() {
 
 	email.Send(file.Name())
 	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	scanner.Split(bufio.ScanLines)
+
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
 	fileInfo, _ = file.Stat()
 	size := fileInfo.Size()
 	buffer := make([]byte, size)
