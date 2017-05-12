@@ -10,6 +10,7 @@ import (
 
 	"github.com/DanielDanteDosSantosViana/darth_vader/aws"
 	"github.com/DanielDanteDosSantosViana/darth_vader/config"
+	"github.com/DanielDanteDosSantosViana/darth_vader/email"
 )
 
 type Reader struct {
@@ -37,6 +38,8 @@ func (r *Reader) Read() {
 		log.Printf("error ao abrir o arquivo : %s", e)
 		return
 	}
+
+	email.Send(file.Name())
 	defer file.Close()
 	fileInfo, _ = file.Stat()
 	size := fileInfo.Size()
