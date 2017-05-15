@@ -9,3 +9,14 @@ region="sa-east-1"
 name="files"
 mysqlread =  "root:1234@/encurtar_url?charset=utf8"
 mysqlwrite = "root:1234@/encurtar_url?charset=utf8"
+
+[[filters]]
+type = ".OUT"
+s3 = true
+email= true
+status = true
+templateMail = "template.html"
+
+[[Emails]]
+email=""
+name=""

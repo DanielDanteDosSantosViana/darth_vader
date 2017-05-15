@@ -7,10 +7,10 @@
         <title><b>Pós Pago - Colossus Status</b></title>
         <style type="text/css">
         .tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;}
-        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
-        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
-        .tg .tg-baqh{text-align:center;vertical-align:top}
-        .tg .tg-j0tj{background-color:#D2E4FC;text-align:center;vertical-align:top}
+        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#ffffff;background-color:#e8edff;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#ffffff;background-color:#b9c9fe;}
+        .tg .tg-baqh{text-align:center;vertical-align:top; background-color: #000000}
+        .tg .tg-j0tj{background-color:#eff5f5;text-align:center;vertical-align:top; color:#000000}
         </style>
 </head>
 
@@ -23,21 +23,19 @@
 
 <table class="tg">
 <tr>
-  <th class="tg-baqh" colspan="5">Arquivo Recebido</th>
+  <th class="tg-baqh" colspan="4">Arquivo Recebido</th>
 </tr>
 <tr>
   <td class="tg-j0tj"> Nome</td>
   <td class="tg-j0tj">Qtd Faturas</td>
-  <td class="tg-j0tj">Total</td>
-  <td class="tg-j0tj">Data Fatura</td>
+  <td class="tg-j0tj">Valor Total</td>
   <td class="tg-j0tj">Data Recebimento</td>
 </tr>
 <tr>
   <td class="tg-baqh">{{.FileName}}</td>
-  <td class="tg-baqh">100</td>
-  <td class="tg-baqh">R$ 1.200,00</td>
-  <td class="tg-baqh">15/05/2017</td>
-  <td class="tg-baqh">12/05/2017</td>
+  <td class="tg-baqh">{{.Total}}</td>
+  <td class="tg-baqh">{{.Value}}</td>
+  <td class="tg-baqh">{{.DataReceiver}}</td>
 </tr>
 </table>
 </body>

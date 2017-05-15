@@ -15,6 +15,14 @@ type db struct {
 	Name       string `toml:"name"`
 }
 
+type filter struct {
+	Type         string `toml:"type"`
+	S3           bool   `toml:"s3"`
+	Email        bool   `toml:"email"`
+	Status       bool   `toml:"status"`
+	TemplateMail string `toml:"templatemail"`
+}
+
 type directory struct {
 	Path string `toml:"path"`
 }
@@ -34,6 +42,7 @@ type config struct {
 	Bucket      bucket      `toml:"bucket"`
 	Credentials credentials `toml:"credentials"`
 	Db          db          `toml:"db"`
+	Filters     []filter    `toml:"filters"`
 }
 
 var Conf config
