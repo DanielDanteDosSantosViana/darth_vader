@@ -7,6 +7,7 @@ import (
 	"net/smtp"
 	"os"
 
+	"github.com/DanielDanteDosSantosViana/darth_vader/config"
 	"github.com/DanielDanteDosSantosViana/darth_vader/models"
 	sendgrid "github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
@@ -25,12 +26,10 @@ func SendPersonlization(status *models.StatusFile, templateName string) {
 	}
 	content := mail.NewContent("text/html", buf.String())
 	m := mail.NewV3MailInit(from, subject, to, content)
+	for _, email := range config.Conf.Emails {
+		m.Personalizations[0].AddTos(mail.NewEmail(email.Name, email.Email))
+	}
 
-	otherMail := mail.NewEmail("Caio", "")
-	otherMail2 := mail.NewEmail("Vitor", "")
-
-	m.Personalizations[0].AddTos(otherMail)
-	m.Personalizations[0].AddTos(otherMail2)
 	request := sendgrid.GetRequest(os.Getenv("SENDGRID_API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")
 	request.Method = "POST"
 	request.Body = mail.GetRequestBody(m)
@@ -50,6 +49,9 @@ func Send(status *models.StatusFile) {
 	to := mail.NewEmail("Daniel", "daniel.viana@m4u.com.br")
 	content := mail.NewContent("text/plain", "Novo Arquivo : "+status.FileName)
 	m := mail.NewV3MailInit(from, subject, to, content)
+	for _, email := range config.Conf.Emails {
+		m.Personalizations[0].AddTos(mail.NewEmail(email.Name, email.Email))
+	}
 
 	request := sendgrid.GetRequest(os.Getenv("SENDGRID_API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")
 	request.Method = "POST"

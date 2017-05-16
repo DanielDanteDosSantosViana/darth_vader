@@ -37,12 +37,18 @@ type credentials struct {
 	SecretKey string `toml:"secretkey"`
 }
 
+type email struct {
+	Name  string `toml:"name"`
+	Email string `toml:"email"`
+}
+
 type config struct {
 	Directories []directory `toml:"directories"`
 	Bucket      bucket      `toml:"bucket"`
 	Credentials credentials `toml:"credentials"`
 	Db          db          `toml:"db"`
 	Filters     []filter    `toml:"filters"`
+	Emails      []email     `toml:"emails"`
 }
 
 var Conf config

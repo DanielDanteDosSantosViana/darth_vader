@@ -1,0 +1,42 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+        <title><b>Pós Pago - Colossus Status</b></title>
+        <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;}
+        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#ffffff;background-color:#e8edff;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#ffffff;background-color:#b9c9fe;}
+        .tg .tg-baqh{text-align:center;vertical-align:top; background-color: #000000}
+        .tg .tg-j0tj{background-color:#eff5f5;text-align:center;vertical-align:top; color:#000000}
+        </style>
+</head>
+
+<body>
+  <h1><b>Pós-Pago - Colossus Status</b></h1>
+
+<p>
+    <b>Foi gerado e enviado para TIM um novo arquivo com as faturas cobradas !</b>
+</p>
+
+<table class="tg">
+<tr>
+  <th class="tg-baqh" colspan="4">Arquivo Gerado</th>
+</tr>
+<tr>
+  <td class="tg-j0tj"> Nome</td>
+  <td class="tg-j0tj">Qtd Faturas</td>
+  <td class="tg-j0tj">Valor Total</td>
+  <td class="tg-j0tj">Data Recebimento</td>
+</tr>
+<tr>
+  <td class="tg-baqh">{{.FileName}}</td>
+  <td class="tg-baqh">{{.Total}}</td>
+  <td class="tg-baqh">{{.Value}}</td>
+  <td class="tg-baqh">{{.DataReceiver}}</td>
+</tr>
+</table>
+</body>
+</html>

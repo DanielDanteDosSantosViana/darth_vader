@@ -17,6 +17,18 @@ email= true
 status = true
 templateMail = "template.html"
 
-[[Emails]]
+[[filters]]
+type = ".RET"
+s3 = true
+email= true
+status = true
+templateMail = "template_return.html"
+
+
+[[emails]]
+email=""
+name=""
+
+[[emails]]
 email=""
 name=""

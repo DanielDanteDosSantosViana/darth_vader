@@ -78,7 +78,7 @@ func (r *Reader) getTotalInvoice(line string) string {
 		fmt.Print(err)
 		return ""
 	}
-	return strconv.FormatInt(value, 10)
+	return strconv.FormatInt(value-2, 10)
 }
 func (r *Reader) getTotalMoney(line string) string {
 	total := line[7:24]
