@@ -28,6 +28,12 @@ func NewReader(filePath string) *Reader {
 
 func (r *Reader) Read() {
 	time.Sleep(time.Second * 5)
+	readDataToS3(r)
+	readStatus(r)
+
+}
+
+func readDataToS3(r *Reader) {
 	fileInfo, err := os.Stat(r.FilePath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -42,6 +48,33 @@ func (r *Reader) Read() {
 	}
 
 	defer file.Close()
+	fileInfo, _ = file.Stat()
+	r.Size = fileInfo.Size()
+	buffer := make([]byte, r.Size)
+	file.Read(buffer)
+	fileBytes := bytes.NewReader(buffer)
+	fileType := http.DetectContentType(buffer)
+
+	r.FileByte = fileBytes
+	r.FileType = fileType
+}
+
+func readStatus(r *Reader) {
+	_, err := os.Stat(r.FilePath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			log.Printf("arquivo não existe.")
+			return
+		}
+	}
+	file, e := os.Open(r.FilePath)
+	if e != nil {
+		log.Printf("error ao abrir o arquivo : %s", e)
+		return
+	}
+
+	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
 
@@ -53,17 +86,6 @@ func (r *Reader) Read() {
 			r.setStatusFile(line)
 		}
 	}
-
-	fileInfo, _ = file.Stat()
-	r.Size = fileInfo.Size()
-	buffer := make([]byte, r.Size)
-	file.Read(buffer)
-	fileBytes := bytes.NewReader(buffer)
-	fileType := http.DetectContentType(buffer)
-
-	r.FileByte = fileBytes
-	r.FileType = fileType
-
 }
 
 func (r *Reader) setStatusFile(line string) {
