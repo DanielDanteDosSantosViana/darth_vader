@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -17,13 +19,20 @@ func NewFileHandler(fileModel *models.FileModel) *File {
 }
 
 func (f *File) List(w http.ResponseWriter, r *http.Request) {
-	name := getUrlParameter(r, "name")
-	files, err := f.fileModel.GetBy(name)
-	if err != nil {
-		log.Println(err.Error())
+	directory := r.URL.Query().Get("directory")
+	if directory == "" {
+		responseBadRequest(w, "Not found directory")
 		return
 	}
 
+	files, err := f.fileModel.List(directory)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+	filesJ, _ := json.Marshal(files)
+	responseOK(w, filesJ)
 }
 func (file *File) GetByName(w http.ResponseWriter, r *http.Request) {
 
@@ -32,4 +41,26 @@ func (file *File) GetByName(w http.ResponseWriter, r *http.Request) {
 func getUrlParameter(r *http.Request, parameter string) string {
 	vars := mux.Vars(r)
 	return vars[parameter]
+}
+
+func responseOK(w http.ResponseWriter, a ...interface{}) {
+	if a != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "%s", a)
+	} else {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+	}
+}
+
+func responseBadRequest(w http.ResponseWriter, a ...interface{}) {
+	if a != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "%s", a)
+	} else {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+	}
 }

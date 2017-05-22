@@ -1,13 +1,15 @@
 package models
 
 import (
+	"log"
+
 	"github.com/DanielDanteDosSantosViana/darth_vader/config"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
 const (
-	collectionName = "modules"
+	collectionName = "files"
 )
 
 type FileModel struct {
@@ -26,11 +28,13 @@ func (fm *FileModel) Create(file *File) error {
 	return nil
 }
 
-func (fm *FileModel) List() ([]File, error) {
+func (fm *FileModel) List(directory string) ([]File, error) {
 	var files []File
-	if err := fm.readDB.DB(config.Conf.Db.Name).C(collectionName).Find(nil).All(&files); err != nil {
+	if err := fm.readDB.DB(config.Conf.Db.Name).C(collectionName).Find(bson.M{"directory": directory}).All(&files); err != nil {
 		return nil, err
 	}
+	log.Print(files)
+
 	return files, nil
 }
 

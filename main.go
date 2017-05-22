@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/DanielDanteDosSantosViana/darth_vader/config"
+	"github.com/DanielDanteDosSantosViana/darth_vader/server"
 	"github.com/DanielDanteDosSantosViana/darth_vader/watcher"
 )
 
@@ -29,6 +30,8 @@ func main() {
 	config.Load(*configFile)
 	config.Conf.Credentials.Id = ID
 	config.Conf.Credentials.SecretKey = SecretKey
+	server := server.NewServer()
+	go server.Listen(":3000")
 	watcher.Watch()
 
 }

@@ -1,14 +1,17 @@
 [[directories]]
-path="/home/danielviana/test"
+path="output"
+
+[[directories]]
+path="success"
 
 [bucket]
-name="testewatchfilebucket"
+name="logs-timpospago"
 region="sa-east-1"
 
 [db]
-name="files"
-mysqlread =  "root:1234@/encurtar_url?charset=utf8"
-mysqlwrite = "root:1234@/encurtar_url?charset=utf8"
+name="local"
+mongoread =  "mongodb://localhost"
+mongowrite = "mongodb://localhost"
 
 [[filters]]
 type = ".OUT"
@@ -23,12 +26,3 @@ s3 = true
 email= true
 status = true
 templateMail = "template_return.html"
-
-
-[[emails]]
-email=""
-name=""
-
-[[emails]]
-email=""
-name=""
