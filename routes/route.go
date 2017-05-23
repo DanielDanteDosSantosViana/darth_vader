@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/DanielDanteDosSantosViana/darth_vader/config"
 	"github.com/DanielDanteDosSantosViana/darth_vader/db"
 	"github.com/DanielDanteDosSantosViana/darth_vader/handlers"
 	"github.com/DanielDanteDosSantosViana/darth_vader/models"
@@ -12,8 +11,6 @@ import (
 )
 
 func StartRoutes() {
-	log.Println(config.Conf.Db.MongoRead)
-	log.Println(config.Conf.Db.MongoWrite)
 	sessionW, err := db.NewSessionWriteDB()
 	if err != nil {
 		log.Panicf("Ocorreu um erro ao tentar abrir conexão com o dbWrite . %v", err)

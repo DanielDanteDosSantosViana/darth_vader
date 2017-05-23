@@ -2,12 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/DanielDanteDosSantosViana/darth_vader/models"
-	"github.com/gorilla/mux"
+	"github.com/DanielDanteDosSantosViana/darth_vader/util"
 )
 
 type File struct {
@@ -21,7 +20,7 @@ func NewFileHandler(fileModel *models.FileModel) *File {
 func (f *File) List(w http.ResponseWriter, r *http.Request) {
 	directory := r.URL.Query().Get("directory")
 	if directory == "" {
-		responseBadRequest(w, "Not found directory")
+		util.ResponseNotFound(w, "Not found directory")
 		return
 	}
 
@@ -31,36 +30,11 @@ func (f *File) List(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
+
+	if len(files) == 0 {
+		util.ResponseNotFound(w, "Don't have files")
+		return
+	}
 	filesJ, _ := json.Marshal(files)
-	responseOK(w, filesJ)
-}
-func (file *File) GetByName(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func getUrlParameter(r *http.Request, parameter string) string {
-	vars := mux.Vars(r)
-	return vars[parameter]
-}
-
-func responseOK(w http.ResponseWriter, a ...interface{}) {
-	if a != nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "%s", a)
-	} else {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-	}
-}
-
-func responseBadRequest(w http.ResponseWriter, a ...interface{}) {
-	if a != nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "%s", a)
-	} else {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-	}
+	util.ResponseOK(w, filesJ)
 }

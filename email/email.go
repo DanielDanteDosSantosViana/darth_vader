@@ -15,11 +15,11 @@ import (
 
 var auth smtp.Auth
 
-func SendPersonlization(status *models.StatusFile, templateName string) {
+func SendPersonlization(file *models.File, templateName string) {
 	from := mail.NewEmail("Colossus", "daniel.viana@m4u.com.br")
 	subject := "Novos Arquivos da TIM"
 	to := mail.NewEmail("Daniel", "daniel.viana@m4u.com.br")
-	err, buf := ParseTemplate("./email/"+templateName, status)
+	err, buf := ParseTemplate("./email/"+templateName, file)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,11 +43,11 @@ func SendPersonlization(status *models.StatusFile, templateName string) {
 	}
 }
 
-func Send(status *models.StatusFile) {
+func Send(file *models.File) {
 	from := mail.NewEmail("Colossus", "daniel.viana@m4u.com.br")
 	subject := "Novos Arquivos da TIM"
 	to := mail.NewEmail("Daniel", "daniel.viana@m4u.com.br")
-	content := mail.NewContent("text/plain", "Novo Arquivo : "+status.FileName)
+	content := mail.NewContent("text/plain", "Novo Arquivo : "+file.Nome)
 	m := mail.NewV3MailInit(from, subject, to, content)
 	for _, email := range config.Conf.Emails {
 		m.Personalizations[0].AddTos(mail.NewEmail(email.Name, email.Email))

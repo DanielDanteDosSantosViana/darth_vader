@@ -30,4 +30,6 @@ func (cmd *Command) Exec(filter *models.Filter) {
 		}
 	}
 
+	models.Create()
+
 }
