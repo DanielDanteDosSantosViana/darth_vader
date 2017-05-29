@@ -4,6 +4,8 @@ import (
 	"github.com/DanielDanteDosSantosViana/darth_vader/config"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"github.com/DanielDanteDosSantosViana/darth_vader/db"
+	"log"
 )
 
 const (
@@ -15,8 +17,28 @@ type FileModel struct {
 	readDB  *mgo.Session
 }
 
-func NewFileModel(writeDB *mgo.Session, readDB *mgo.Session) *FileModel {
-	return &FileModel{writeDB, readDB}
+func NewFileModel() *FileModel {
+
+	sessionW, err := db.NewSessionWriteDB()
+	if err != nil {
+		log.Panicf("Ocorreu um erro ao tentar abrir conexão com o dbWrite . %v", err)
+	}
+
+	err = sessionW.Ping()
+	if err != nil {
+		log.Panicf("Ocorreu um erro ao tentar verificar conexão dbWrite . %v", err)
+	}
+
+	sessionR, err := db.NewSessionReadDB()
+	if err != nil {
+		log.Panicf("Ocorreu um erro ao tentar abrir conexão com o dbRead . %v", err)
+	}
+
+	err = sessionR.Ping()
+	if err != nil {
+		log.Panicf("Ocorreu um erro ao tentar verificar conexão dbRead . %v", err)
+	}
+	return &FileModel{sessionW, sessionR}
 }
 
 func (fm *FileModel) Create(file *File) error {

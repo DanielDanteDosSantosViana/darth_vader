@@ -89,7 +89,7 @@ func readStatus(r *Reader) {
 }
 
 func (r *Reader) setStatusFile(line string) {
-	status := models.NewStatusFile(r.getTotalInvoice(line), r.getTotalMoney(line), r.FilePath)
+	status := models.NewStatusFile(r.getTotalInvoice(line), r.getTotalMoney(line))
 	r.Status = status
 }
 

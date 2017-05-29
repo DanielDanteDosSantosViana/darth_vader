@@ -18,6 +18,8 @@ func NewFileHandler(fileModel *models.FileModel) *File {
 }
 
 func (f *File) List(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	directory := r.URL.Query().Get("directory")
 	if directory == "" {
 		util.ResponseNotFound(w, "Not found directory")
