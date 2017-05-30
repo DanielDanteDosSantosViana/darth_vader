@@ -1,17 +1,27 @@
 version: "2"
 
 services:
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
   darth_vader:
     image: darth_vader
     restart: always
     volumes:
-      - .:/go/src/github.com/DanielDanteDosSantosViana/darth_vader
       - /home/danielviana/desenvolvimento/projetos/workspace_go/src/github.com/DanielDanteDosSantosViana/darth_vader/output:/go/src/github.com/DanielDanteDosSantosViana/darth_vader/output
       - /home/danielviana/desenvolvimento/projetos/workspace_go/src/github.com/DanielDanteDosSantosViana/darth_vader/success:/go/src/github.com/DanielDanteDosSantosViana/darth_vader/success
 
     working_dir: /go/src/github.com/DanielDanteDosSantosViana/darth_vader
     command: go run main.go
     environment:
-      ID_AWS: 
-      SECRET_KEY_AWS: 
-      SENDGRID_API_KEY: 
+      ID_AWS: teste
+      SECRET_KEY_AWS: teste
+      SENDGRID_API_KEY: teste
+    links:
+      - mongo
+    ports:
+      - "3000:3000"
+

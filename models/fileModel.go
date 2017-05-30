@@ -55,3 +55,11 @@ func (fm *FileModel) List(directory string) ([]File, error) {
 	}
 	return files, nil
 }
+
+func (fm *FileModel) ListAll() ([]File, error) {
+	var files []File
+	if err := fm.readDB.DB(config.Conf.Db.Name).C(collectionName).Find(nil).All(&files); err != nil {
+		return nil, err
+	}
+	return files, nil
+}

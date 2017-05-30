@@ -15,3 +15,5 @@ ENV ID_AWS="testewas"
 ENV SECRET_KEY="secretawskey" 
 # Run the outyet command by default when the container starts.
 ENTRYPOINT /go/bin/darth_vader
+
+EXPOSE 3000

@@ -10,8 +10,8 @@ region="sa-east-1"
 
 [db]
 name="local"
-mongoread =  "mongodb://localhost"
-mongowrite = "mongodb://localhost"
+mongoread =  "mongodb://mongo:27017"
+mongowrite = "mongodb://mongo:27017"
 
 [[filters]]
 type = ".OUT"
